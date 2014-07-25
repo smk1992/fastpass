@@ -287,4 +287,8 @@ angular.module('fastpass.controllers', ['ionic', 'firebase'])
     authService.login(type);
   };
   authService.logout();
+<<<<<<< HEAD
 });
+=======
+})
+>>>>>>> Fix Self Display for Chat
