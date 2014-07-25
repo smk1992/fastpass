@@ -39,8 +39,14 @@ angular.module('fastpass.controllers', ['ionic', 'firebase'])
     $scope.chatSessions3.on('value', function (snapshot) {
       //reset $rootscope.selected (it also gets set when another user selects an offer from the offers list)
       $rootScope.selected = {};
+      $rootScope.selectedPartner = '';
       //all messages between LIU and other user
-      var convoParts = snapshot.val();
+      var convoParts = snapshot.val();      
+      
+      if (convoParts.displayName) {
+        $rootScope.selectedPartner = convoParts.displayName;  
+      }
+
       for (var key in convoParts) {
         //in DB, each collection of messages between two users also has an offer key
         //loop through the message keys to find the offer that the two users are interacting about
@@ -48,6 +54,7 @@ angular.module('fastpass.controllers', ['ionic', 'firebase'])
           $rootScope.selected = convoParts[key];
         }
       }
+  
       $rootScope.selected.offererId = partnerId;
     });
   };
@@ -602,7 +609,7 @@ angular.module('fastpass.controllers', ['ionic', 'firebase'])
   // the name associated with the selected offer
   $scope.to = $rootScope.selected.offererId;
   // the name of the person talking to
-  $scope.talkingTo = $rootScope.selected.displayName;
+  $scope.talkingTo = $rootScope.selectedPartner;
   // current logged in user
   $scope.from = authService.getUserId();
 
@@ -628,7 +635,7 @@ angular.module('fastpass.controllers', ['ionic', 'firebase'])
     $firebase(messageRef).$add($scope.comment);
     $firebase(otherMessageRef).$add($scope.comment);
 
-    $firebase(messageRef).$update({offer: $rootScope.selected, displayName: $rootScope.selected.displayName});
+    $firebase(messageRef).$update({offer: $rootScope.selected, displayName: $scope.talkingTo});
     $firebase(otherMessageRef).$update({offer: $rootScope.selected, displayName: $scope.comment.senderDisplayName});
 
     $scope.comment.content = '';  
