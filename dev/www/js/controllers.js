@@ -289,7 +289,11 @@ angular.module('fastpass.controllers', ['ionic', 'firebase'])
   authService.logout();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 });
+=======
+})
+>>>>>>> Fix Self Display for Chat
 =======
 })
 >>>>>>> Fix Self Display for Chat
