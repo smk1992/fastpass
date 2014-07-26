@@ -23,7 +23,7 @@ angular.module('fastpass.controllers', ['ionic', 'firebase'])
   //grabs interacting with about offers
   $scope.chatRetriever = function (partnerId) {
     //grab all messages between logged in user and user clicked on in dashboard
-    $scope.chatSessions3 = new Firebase('https://fastpass-connection.firebaseio.com/messages/' + authService.getUserId() + '/' + partnerId);
+    $scope.chatSessions3 = new Fireba-se('https://fastpass-connection.firebaseio.com/messages/' + authService.getUserId() + '/' + partnerId);
     $scope.chatSessions3.on('value', function (snapshot) {
       //reset $rootscope.selected (it also gets set when another user selects an offer from the offers list)
       $rootScope.selected = {};
@@ -287,4 +287,5 @@ angular.module('fastpass.controllers', ['ionic', 'firebase'])
     authService.login(type);
   };
   authService.logout();
+
 });
